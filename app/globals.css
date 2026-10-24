@@ -1,0 +1,154 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --color-ink: #09090b;
+  --color-card: #131316;
+  --color-raised: #1b1b20;
+  --color-line: #27272e;
+  --color-mute: #8b8b97;
+  --color-volt: #d4ff3a;
+  --color-hot: #ff3d8b;
+  --color-violet: #7c5cff;
+  --color-sky: #3ad7ff;
+  --color-amber: #ffb23a;
+
+  --animate-pop: pop 0.38s cubic-bezier(0.2, 0.9, 0.3, 1.35) both;
+  --animate-rise: rise 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-fade: fade 0.3s ease-out both;
+  --animate-shake: shake 0.45s ease-in-out;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.2s linear infinite;
+  --animate-sheet: sheet 0.42s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+  --animate-burst: burst 0.7s ease-out both;
+
+  @keyframes pop {
+    0% { transform: scale(0.92); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes rise {
+    0% { transform: translateY(14px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes fade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes sheet {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(0); }
+  }
+  @keyframes burst {
+    0% { transform: scale(0.4); opacity: 0.9; }
+    100% { transform: scale(2.4); opacity: 0; }
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-ink text-white antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+    overscroll-behavior-y: none;
+  }
+  ::selection {
+    @apply bg-volt text-ink;
+  }
+  input,
+  textarea,
+  select {
+    /* ≥16px prevents iOS Safari from zooming on focus */
+    font-size: 16px;
+  }
+}
+
+@utility btn {
+  @apply inline-flex h-14 w-full items-center justify-center gap-2 rounded-2xl px-6 text-[17px] font-bold tracking-tight transition active:scale-[0.97] disabled:pointer-events-none disabled:opacity-40;
+}
+@utility btn-primary {
+  @apply btn bg-volt text-ink shadow-[0_0_0_1px_rgba(212,255,58,0.4),0_10px_40px_-10px_rgba(212,255,58,0.6)];
+}
+@utility btn-ghost {
+  @apply btn border border-line bg-card text-white hover:bg-raised;
+}
+@utility btn-insta {
+  @apply btn text-white;
+  background: linear-gradient(90deg, #feda75 0%, #fa7e1e 25%, #d62976 50%, #962fbf 75%, #4f5bd5 100%);
+}
+@utility input {
+  @apply h-14 w-full rounded-2xl border border-line bg-card px-4 font-semibold text-white outline-none transition placeholder:text-mute focus:border-volt focus:ring-4 focus:ring-volt/15;
+}
+@utility chip {
+  @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-card px-3 py-1 text-xs font-semibold text-white/80;
+}
+@utility card {
+  @apply rounded-3xl border border-line bg-card;
+}
+@utility glow-text {
+  background: linear-gradient(92deg, #d4ff3a, #3ad7ff 45%, #ff3d8b 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility skeleton {
+  @apply animate-shimmer rounded-2xl;
+  background: linear-gradient(90deg, #17171b 0%, #222228 50%, #17171b 100%);
+  background-size: 200% 100%;
+}
+@utility safe-bottom {
+  padding-bottom: max(env(safe-area-inset-bottom), 0.75rem);
+}
+@utility safe-top {
+  padding-top: max(env(safe-area-inset-top), 0.75rem);
+}
+
+/* Ambient background blobs */
+.ambient::before,
+.ambient::after {
+  content: '';
+  position: fixed;
+  z-index: -1;
+  width: 70vmax;
+  height: 70vmax;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.16;
+  pointer-events: none;
+}
+.ambient::before {
+  top: -35vmax;
+  left: -25vmax;
+  background: #7c5cff;
+}
+.ambient::after {
+  bottom: -40vmax;
+  right: -30vmax;
+  background: #ff3d8b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
