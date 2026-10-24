@@ -1,0 +1,9 @@
+import type { MetadataRoute } from 'next'
+import { SITE_URL } from '@/lib/env'
+
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: [{ userAgent: '*', allow: ['/', '/s/'], disallow: ['/api/', '/vote', '/inbox', '/me', '/onboarding', '/auth/'] }],
+    sitemap: `${SITE_URL}/sitemap.xml`,
+  }
+}

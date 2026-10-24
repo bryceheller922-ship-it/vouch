@@ -1,0 +1,25 @@
+# deps
+node_modules/
+.pnp*
+
+# next / build
+.next/
+out/
+build/
+next-env.d.ts
+*.tsbuildinfo
+
+# env — never commit secrets
+.env
+.env*.local
+
+# vercel / supabase local state
+.vercel
+supabase/.branches
+supabase/.temp
+
+# misc
+.DS_Store
+npm-debug.log*
+coverage/
+.cache/

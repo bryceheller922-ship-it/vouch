@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "fluid": true,
+  "regions": ["iad1"],
+  "functions": {
+    "app/api/vote/route.ts": { "maxDuration": 10 },
+    "app/api/og/poll/route.tsx": { "maxDuration": 15 }
+  }
+}
